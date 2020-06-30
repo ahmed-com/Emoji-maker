@@ -1,6 +1,6 @@
 <template>
   <div >
-    <v-navigation-drawer app>
+    <v-navigation-drawer app v-model="drawer">
       <form >
         <v-slider
             v-model="width"
@@ -48,7 +48,7 @@
             v-model="eyebrowHeight"
             min="0"
             max="30"
-            label="Eyebrow Width"
+            label="Eyebrow Height"
             hide-details
         ></v-slider>
         <v-slider
@@ -119,10 +119,10 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon class="grey--text" ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer" class="grey--text" ></v-app-bar-nav-icon>
       <v-tool-bar-title>The Emoji Maker</v-tool-bar-title>
       <v-spacer></v-spacer>
-      <v-btn>Export Emoji</v-btn>
+      <v-btn @click="exportEmoji">Export Emoji</v-btn>
     </v-app-bar>
 
     
@@ -148,6 +148,7 @@
             :mouthEndAngle="mouthEndAngle"
             :mouthYOffset="mouthYOffset"
             :mouthXOffset="mouthXOffset"
+            @element="setEmoji"
           />
       </v-container>
     </v-content>
@@ -186,7 +187,32 @@ export default {
     mouthStartAngle : Math.PI /2 ,
     mouthEndAngle : Math.PI * 5/8,
     mouthYOffset : 0,
-    mouthXOffset : 0
+    mouthXOffset : 0,
+    emoji : null,
+    drawer: true
   }),
+  methods : {
+    exportEmoji(){
+      const emoji = this.emoji;
+      // convert svg to string
+      let source = new XMLSerializer().serializeToString(emoji);
+      // convert svg string into a url
+      source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+      const url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+      this.download('Emoji.svg',url);
+    },
+    setEmoji(element){
+      this.emoji = element;
+    },
+    download(fileName,url){
+      const element = document.createElement('a');
+      element.setAttribute('href', url);
+      element.setAttribute('download', fileName);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+  }
 };
 </script>

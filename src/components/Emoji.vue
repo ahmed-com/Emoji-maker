@@ -1,5 +1,5 @@
 <template>
-  <svg :width="width" :height="height" :style="{backgroundColor}">
+  <svg id="emoji" :width="width" :height="height" :style="{backgroundColor}">
     <g 
       :transform="emojiPosition"
       >
@@ -90,6 +90,9 @@
           endAngle: vm.mouthEndAngle,
         });
       }
+    },
+    mounted(){
+      this.$emit('element',document.getElementById('emoji'));
     }
   }
 </script>
