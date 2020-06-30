@@ -2,5 +2,7 @@ module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
-  publicPath : '/Emoji-maker/'
+  publicPath : process.env.NODE_ENV === 'production'
+  ? '/Emoji-maker/'
+  : '/'
 }
