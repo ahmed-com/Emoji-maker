@@ -183,8 +183,8 @@ export default {
     eyebrowYOffset : 70,
     mouthInnerRadius : 100,
     mouthOuterRadius : 120,
-    mouthStartAngle : Math.PI ,
-    mouthEndAngle : Math.PI * 3/2,
+    mouthStartAngle : Math.PI /2 ,
+    mouthEndAngle : Math.PI * 5/8,
     mouthYOffset : 0,
     mouthXOffset : 0
   }),
