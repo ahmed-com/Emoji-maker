@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <v-app>
     <v-navigation-drawer app v-model="drawer">
       <form >
         <v-slider
@@ -156,7 +156,7 @@
     <v-footer app>
       <p>Made by <a href="https://github.com/ahmed-com">Ahmed-com</a></p>
     </v-footer>
-  </div>
+  </v-app>
 </template>
 
 <script>
